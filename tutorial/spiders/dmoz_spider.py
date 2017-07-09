@@ -14,9 +14,10 @@ class TestSpider(scrapy.Spider):
             item['href'] = resp.css('h2 a::attr(href)').extract()
             item['title'] = resp.css('h2 a::text').extract()
             item['content'] = resp.css('.intro p::text').extract()
-            item['view'] = response.css('h6::text').extract()[3]
+            item['view'] = response.css('h6::text').extract()[3] #得到h6元素下面的第三个信息
             yield item
-        # # 下面是多页面的爬取方法
+
+        # 下面是多页面的爬取方法
         urls = response.css('.pageinfo a::attr(href)').extract()
         for url in urls:
             yield Request(url, callback=self.parse)

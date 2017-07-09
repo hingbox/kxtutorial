@@ -56,10 +56,10 @@ ROBOTSTXT_OBEY = True
 #    'tutorial.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 # 设置Pipeline,此处实现数据写入文件
-ITEM_PIPELINES = {
-    'tutorial.pipelines.TutorialPipeline': 300
-}
-
+#ITEM_PIPELINES = {
+    #'tutorial.pipelines.TutorialPipeline': 300
+#}
+#ITEM_PIPELINES = ['tutorial.pipelines.Tech163Pipeline',]
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 #EXTENSIONS = {
@@ -94,3 +94,19 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 #HTTPERROR_ALLOWED_CODES = [403]
 #DOWNLOADER_MIDDLEWARES = {'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,}
+#USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.7'
+#DOWNLOAD_TIMEOUT = 15
+#豆瓣配置
+ITEM_PIPELINES = {
+        'tutorial.pipelines.DouBanPipeline' : 300
+        }
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+USER_AGENT ='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
+# MONGODB 主机环回地址127.0.0.1
+MONGODB_HOST = '127.0.0.1'
+# 端口号，默认是27017
+MONGODB_PORT = 27017
+# 设置数据库名称
+MONGODB_DBNAME = 'DouBan'
+# 存放本次数据的表名称
+MONGODB_DOCNAME = 'DouBanMovies'
