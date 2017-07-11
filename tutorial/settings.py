@@ -100,6 +100,11 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
         'tutorial.pipelines.DouBanPipeline' : 300
         }
+
+#网易新闻配置
+ITEM_PIPELINES = {
+        'tutorial.pipelines.Tech163Pipeline' : 300
+        }
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT ='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'
 # MONGODB 主机环回地址127.0.0.1

@@ -20,24 +20,19 @@ class TestItem(Item):
     view = Field()
 
 class Tech163Item(Item):
-    news_thread = scrapy.Field()
-    news_title = scrapy.Field()
-    news_url = scrapy.Field()
-    news_time = scrapy.Field()
-    news_from = scrapy.Field()
-    from_url = scrapy.Field()
-    news_body = scrapy.Field()
+    news_thread = scrapy.Field()#定义获取新闻的进程
+    news_title = scrapy.Field()#获取新闻标题
+    news_url = scrapy.Field()#获取新闻地址
+    news_time = scrapy.Field()#获取新闻发布时间
+    news_from = scrapy.Field()#获取发布者
+    from_url = scrapy.Field()#获取。。。
+    news_body = scrapy.Field()#获取新闻正文
 
 #豆瓣的爬取内容
 class DouBanItem(Item):
-    # 电影标题
-    title = Field()
-    # 电影评分
-    score = Field()
-    # 电影信息
-    content = Field()
-    # 简介
-    info = Field()
-    #评价数
-    evaluate = Field()
+    title = Field()#电影标题
+    score = Field()#电影评分
+    content = Field()#电影信息
+    info = Field()#简介
+    evaluate = Field()#评价数
 

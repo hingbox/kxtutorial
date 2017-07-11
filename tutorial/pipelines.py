@@ -15,6 +15,8 @@ class TutorialPipeline(object):
         line = json.dumps(dict(item)) + "\n"
         self.file.write(line.decode("unicode_escape"))
         return item
+
+#网易新闻
 from spiders.store import NewsDB
 class Tech163Pipeline(object):
     def process_item(self, item, spider):
@@ -26,7 +28,7 @@ class Tech163Pipeline(object):
         NewsDB.new.update(spec, {"$set": dict(item)}, upsert=True)
         return None
 
-#豆瓣
+#豆瓣top250
 from scrapy.conf import settings
 import pymongo
 class DouBanPipeline(object):
