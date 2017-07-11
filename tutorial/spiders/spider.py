@@ -37,9 +37,9 @@ from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from scrapy.contrib.spiders import CrawlSpider,Rule
 class Tech163Spider(CrawlSpider):
-    name = "news"
+    name = "news"#该名字必须是唯一的。不可以为不同的Spider设置相同的名字。
     allowed_domains = ["tech.163.com"]#需要对应网易新闻的类别
-    start_urls = ['http://tech.163.com/']
+    start_urls = ['http://tech.163.com/']#包含了Spider在启动时进行爬取的URL列表。因此，第一个被获取的页面将是其中之一。后续的url则是从出事的url获取到的数据中提取。可以使用正则表达式定义和过滤需要进行跟进的链接。
     rules = (
         Rule(
             LinkExtractor(allow=r"/17/07\d+/\d+/*"),#这里需根据具体年份考虑 /17/是指年份 /07\d+/ 是指月份 这个可参考一个网易新闻的地址：http://tech.163.com/17/0711/07/CP20CRUC00097U7R.html
@@ -50,7 +50,7 @@ class Tech163Spider(CrawlSpider):
         ),
     )
 
-    def parse_news(self, response):
+    def parse_news(self, response):#是spider的一个方法。被调用时，每个初始url完成下载后生成的response对象将会作为唯一的参数传递给该函数。该方法负责解析返回的数据、提取数据（生成item）以及生成需要进一步处理的url的response对象。
         item = Tech163Item()
         item['news_thread'] = response.url.strip().split('/')[-1][:-5]
         self.get_title(response, item)
