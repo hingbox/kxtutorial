@@ -36,3 +36,11 @@ class DouBanItem(Item):
     info = Field()#简介
     evaluate = Field()#评价数
 
+
+#博客园内容
+class cnBlogsItem(Item):
+    headTitle = Field()
+    content = Field()
+    datetime = Field()
+    url = Field()
+
