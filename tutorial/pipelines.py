@@ -7,7 +7,7 @@
 
 import json
 import codecs
-class TutorialPipeline(object):
+class TestPipeline(object):
     def __init__(self):
         self.file = codecs.open('D:\\PycharmProjects\\data1.json', mode='wb', encoding='utf-8')  # 数据存储到data.json
 
@@ -77,5 +77,16 @@ class DouBanPipeline(object):
         data = dict(item)
         # 向指定的表里添加数据
         self.post.insert(data)
+        return item
+
+#中药信息
+class ChineseMedicinePipeline(object):
+    def __init__(self):
+        self.file = codecs.open('D:\\PycharmProjects\\medicine.json', mode='wb', encoding='utf-8')  # 数据存储到data.json
+
+
+    def process_item(self, item, spider):
+        line = json.dumps(dict(item)) + "\n"
+        self.file.write(line.decode("unicode_escape"))
         return item
 

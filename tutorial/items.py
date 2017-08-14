@@ -44,3 +44,9 @@ class cnBlogsItem(Item):
     datetime = Field()
     url = Field()
 
+#中药知识平台内容
+# class ChineseMedicineItem(Item):
+#     medicineName = Field()#药名
+#     overView = Field()#概述
+#     basicInfo = Field()#基本信息
+

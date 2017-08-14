@@ -56,9 +56,9 @@ ROBOTSTXT_OBEY = True
 #    'tutorial.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 # 设置Pipeline,此处实现数据写入文件
-#ITEM_PIPELINES = {
-    #'tutorial.pipelines.TutorialPipeline': 300
-#}
+ITEM_PIPELINES = {
+    'tutorial.pipelines.TestPipeline': 300
+}
 #ITEM_PIPELINES = ['tutorial.pipelines.Tech163Pipeline',]
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -106,10 +106,13 @@ ITEM_PIPELINES = {
         'tutorial.pipelines.Tech163Pipeline' : 300
         }
 #保存为xml暂时有问题
-# ITEM_PIPELINES = {
-#         'tutorial.pipelines.Tech163XmlPipeline',
-#         }
-
+ITEM_PIPELINES = {
+        'tutorial.pipelines.Tech163XmlPipeline',
+        }
+#中药信息
+ITEM_PIPELINES = {
+        'tutorial.pipelines.ChineseMedicinePipeline': 300,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT ='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36'

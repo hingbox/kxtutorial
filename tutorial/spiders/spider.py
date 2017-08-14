@@ -1,4 +1,40 @@
 # -*- coding: utf-8 -*-
+import scrapy
+from tutorial.items import TestItem
+from scrapy.http import Request
+#网易新闻的爬取规则
+from tutorial.items import Tech163Item
+from scrapy.contrib.linkextractors import LinkExtractor
+from scrapy.contrib.spiders import CrawlSpider,Rule
+#博客园爬取规则
+import sys
+import string
+from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+from tutorial.items import cnBlogsItem
+class TestSpider(scrapy.Spider):
+    # 定义爬虫的名字和需要爬取的网址
+    name = "test"
+    allowed_domains = ["www.abckg.com"]
+    start_urls = ['http://www.abckg.com/']
+    def parse(self,response):
+        for resp in response.css(".post"):
+            item = TestItem()
+            # 把获取到的内容保存到item内
+            item['href'] = resp.css('h2 a::attr(href)').extract()
+            item['title'] = resp.css('h2 a::text').extract()
+            item['content'] = resp.css('.intro p::text').extract()
+            item['view'] = response.css('h6::text').extract()[3] #得到h6元素下面的第三个信息
+            yield item
+
+        # 下面是多页面的爬取方法
+        urls = response.css('.pageinfo a::attr(href)').extract()
+        for url in urls:
+            yield Request(url, callback=self.parse)
+        categorys = response.css('.menu li a::attr(href)').extract()
+        for ct in categorys:
+            yield Request(ct, callback=self.parse)
+            yield item
+
 #豆瓣的爬取规则
 import scrapy
 import re
@@ -32,10 +68,10 @@ class DouBanSpider(scrapy.Spider):
             yield scrapy.Request(self.url + str(self.start) + self.end, callback=self.parse)
 
 #网易新闻的爬取规则
-from tutorial.items import Tech163Item
-from scrapy.contrib.linkextractors import LinkExtractor
+# from tutorial.items import Tech163Item
+# from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.selector import Selector
-from scrapy.contrib.spiders import CrawlSpider,Rule
+# from scrapy.contrib.spiders import CrawlSpider,Rule
 class Tech163Spider(CrawlSpider):
     name = "news"#该名字必须是唯一的。不可以为不同的Spider设置相同的名字。
     allowed_domains = ["tech.163.com"]#需要对应网易新闻的类别
@@ -93,10 +129,10 @@ class Tech163Spider(CrawlSpider):
             item['news_url'] = news_url
 
 #博客园爬取规则
-import sys
-import string
-from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
-from tutorial.items import cnBlogsItem
+# import sys
+# import string
+# from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+# from tutorial.items import cnBlogsItem
 sys.stdout = open('D:\\PycharmProjects\\output.txt','w') #将打印信息输出在相应的位置下
 add = 0
 
@@ -162,3 +198,23 @@ class cnBlogsSpider(CrawlSpider):
         print item
         items.append(item)
         return items
+
+# from tutorial.items import ChineseMedicineItem
+# class ChineseMedicineSpider(CrawlSpider):
+#     name = "chineseMedicine"
+#     allowed_domain ="www.tcminformatics.org"
+#     start_urls =["http://www.tcminformatics.org/wiki/index.php",]
+#     rules = (
+#         Rule(
+#             LinkExtractor(allow=r"/baike/search?kw/*"),
+#             callback="parse_content",
+#             follow=True
+#             # follow=ture定义了是否再爬到的结果上继续往后爬
+#         ),
+#     )
+#     def parse_content(self,response):
+#         sel = HtmlXPathSelector(response)
+#         item = ChineseMedicineItem()
+#         item['medicineName'] = sel.xpath("//div[@class='container']/h1/text()").extract()
+#         print item
+
