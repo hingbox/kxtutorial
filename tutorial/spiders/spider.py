@@ -218,3 +218,11 @@ class cnBlogsSpider(CrawlSpider):
 #         item['medicineName'] = sel.xpath("//div[@class='container']/h1/text()").extract()
 #         print item
 
+###这是一个测试的
+class TestDemoSpider(CrawlSpider):
+    name = "testdemo"
+    allowed_domain = "http://www.spprec.com/sczw/infodetail/?infoid=6c11a6aa-480b-44b8-b5c2-6932d43d1154&categoryNum=005001003"
+    def parse(self,response):
+        contents = response.xpath('//*[@id="ivs_content"]')
+        print contents
+
